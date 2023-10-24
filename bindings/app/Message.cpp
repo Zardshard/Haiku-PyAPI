@@ -30,6 +30,14 @@ status_t GetInfoWrapper(BMessage& self, type_code typeRequested, int32 index,
 		nameFound.data(), typeFound, countFound);
 }
 
+status_t GetCurrentSpecifierWrapper(BMessage& self, int32* index,
+		BMessage* specifier, int32* _what, std::string* property) {
+	const char* p;
+	status_t status = self.GetCurrentSpecifier(index, specifier, _what, &p);
+	*property = p;
+	return status;
+}
+
 PYBIND11_MODULE(Message,m)
 {
 m.attr("B_NO_SPECIFIER") = 0;
@@ -87,7 +95,7 @@ py::class_<BMessage,std::unique_ptr<BMessage, py::nodelete>>(m, "BMessage")
 .def("AddSpecifier", py::overload_cast<const BMessage *>(&BMessage::AddSpecifier), "", py::arg("specifier"))
 
 .def("SetCurrentSpecifier", &BMessage::SetCurrentSpecifier, "", py::arg("index"))
-//.def("GetCurrentSpecifier", &BMessage::GetCurrentSpecifier, "", py::arg("index"), py::arg("specifier")=NULL, py::arg("what")=NULL, py::arg("property")=NULL)
+.def("GetCurrentSpecifier", &GetCurrentSpecifierWrapper, "", py::arg("index"), py::arg("specifier")=NULL, py::arg("what")=NULL, py::arg("property")=NULL)
 .def("HasSpecifiers", &BMessage::HasSpecifiers, "")
 .def("PopSpecifier", &BMessage::PopSpecifier, "")
 .def("AddAlignment", &BMessage::AddAlignment, "", py::arg("name"), py::arg("alignment"))
