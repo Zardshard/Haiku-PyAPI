@@ -145,8 +145,8 @@ py::class_<BMessage,std::unique_ptr<BMessage, py::nodelete>>(m, "BMessage")
 .def("FindSize", py::overload_cast<const char *, int32, BSize *>(&BMessage::FindSize, py::const_), "", py::arg("name"), py::arg("index"), py::arg("size"))
 //.def("FindString", py::overload_cast<const char *, const char * *>(&BMessage::FindString), "", py::arg("name"), py::arg("string"))
 //.def("FindString", py::overload_cast<const char *, int32, const char * *>(&BMessage::FindString), "", py::arg("name"), py::arg("index"), py::arg("string"))
-//.def("FindString", py::overload_cast<const char *, BString *>(&BMessage::FindString), "", py::arg("name"), py::arg("string"))
-//.def("FindString", py::overload_cast<const char *, int32, BString *>(&BMessage::FindString), "", py::arg("name"), py::arg("index"), py::arg("string"))
+.def("FindString", py::overload_cast<const char *, BString *>(&BMessage::FindString, py::const_), "", py::arg("name"), py::arg("string"))
+.def("FindString", py::overload_cast<const char *, int32, BString *>(&BMessage::FindString, py::const_), "", py::arg("name"), py::arg("index"), py::arg("string"))
 //
 .def("FindStrings", &BMessage::FindStrings, "", py::arg("name"), py::arg("list"))
 /*
