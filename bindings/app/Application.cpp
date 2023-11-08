@@ -47,11 +47,6 @@ void ArgvReceivedWrapper(BApplication& self, int32 argc, std::vector<char*> argv
 
 PYBIND11_MODULE(Application,m)
 {
-/*
-m.attr("PortLink") = PortLink;
-
-m.attr("ServerMemoryAllocator") = ServerMemoryAllocator;
-*/
 py::class_<BApplication,PyBApplication,BLooper>(m, "BApplication")
 .def(py::init<const char *>(), "", py::arg("signature"))
 .def(py::init<const char *, status_t *>(), "", py::arg("signature"), py::arg("error"))
@@ -89,8 +84,7 @@ py::class_<BApplication,PyBApplication,BLooper>(m, "BApplication")
 .def("RegisterLooper", &BApplication::RegisterLooper, "", py::arg("looper"))
 .def("UnregisterLooper", &BApplication::UnregisterLooper, "", py::arg("looper"))
 .def("GetSupportedSuites", &BApplication::GetSupportedSuites, "", py::arg("data"))
-.def("Perform", &BApplication::Perform, "", py::arg("d"), py::arg("arg"))
-//.def_readwrite("Private", &BApplication::Private, "")
+.def("Perform", &BApplication::Perform, "", py::arg("d"), py::arg("arg")
 ;
 
 m.attr("be_app") = be_app;
